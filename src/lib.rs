@@ -1,7 +1,9 @@
 use bevy::prelude::*;
-use bevy::render::{ mesh::*, render_resource::*, render_asset::RenderAssetUsages};
+use bevy::render::render_resource::*;
 use bevy::platform::collections::hash_map::HashMap;
 use std::hash::Hash;
+use bevy::asset::RenderAssetUsages;
+use bevy::mesh::Indices;
 
 pub mod prelude;
 

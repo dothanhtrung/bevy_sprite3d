@@ -1,10 +1,9 @@
 use bevy::{prelude::*, window::WindowResolution};
-use bevy::core_pipeline::bloom::Bloom;
 use bevy::core_pipeline::tonemapping::Tonemapping;
 use std::time::Duration;
+use bevy::anti_alias::taa::TemporalAntiAliasing;
 use bevy::pbr::ScreenSpaceAmbientOcclusion;
-use bevy::core_pipeline::experimental::taa::TemporalAntiAliasing;
-
+use bevy::post_process::bloom::Bloom;
 use bevy_sprite3d::prelude::*;
 
 use rand::{prelude::SliceRandom, Rng};
@@ -34,7 +33,7 @@ fn main() {
             .set(ImagePlugin::default_nearest())
             .set(WindowPlugin {
                 primary_window: Some( Window{
-                    resolution: WindowResolution::new(1080.0, 1080.0 * 3./4.),
+                    resolution: WindowResolution::new(1080, 1080 * 3/4),
                     ..default()
                 }), ..default()
             }))
@@ -110,7 +109,6 @@ fn setup(
     commands
         .spawn(Camera3d::default())
         .insert(Camera {
-            hdr: true,
             clear_color: ClearColorConfig::Custom(Color::NONE),
             ..default()
         })
