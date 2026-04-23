@@ -158,7 +158,8 @@ fn bundle_builder(mut commands: Commands,
 {
     for (mut sprite3d, mut mesh, mut mat, sprite, e) in query.iter_mut() {
         // get image dimensions
-        let image_size = images.get(&sprite.image).unwrap().texture_descriptor.size;
+        let Some(image) = images.get(&sprite.image) else { continue; };
+        let image_size = image.texture_descriptor.size;
         // w & h are the world-space size of the sprite.
         let w = (image_size.width as f32) / sprite3d.pixels_per_metre;
         let h = (image_size.height as f32) / sprite3d.pixels_per_metre;
@@ -280,7 +281,8 @@ fn handle_texture_atlases(
         };
 
         if texture_atlas.layout != sprite_3d.last_texture_atlas {
-            let image_size = images.get(&sprite.image).unwrap().texture_descriptor.size;
+            let Some(image) = images.get(&sprite.image) else { continue; };
+            let image_size = image.texture_descriptor.size;
             gen_mesh_key(&atlas_layouts, &mut caches, texture_atlas, &mut sprite_3d, &image_size, &mut meshes);
             sprite_3d.last_texture_atlas = texture_atlas.layout.clone();
         }
